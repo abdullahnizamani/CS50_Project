@@ -1,0 +1,42 @@
+.container-main {
+    position: relative;
+}
+
+
+
+.container-salary {
+
+    height: 180px;
+
+    box-shadow: 1rem 1rem 2rem #0303032c;
+    transition: all 0.4s ease;
+}
+
+.container-salary:hover {
+    box-shadow: 1.8rem 1.8rem 3rem #0000002c;
+    cursor: pointer;
+
+}
+
+.container-salary-year:hover {
+    box-shadow: 1.8rem 1.8rem 3rem #0000002c;
+    cursor: pointer;
+
+}
+
+.container-expense {
+    height: 180px;
+    box-shadow: 1rem 1rem 2rem #0303032c;
+    transition: all 0.4s ease;
+}
+
+.container-expense:hover {
+    box-shadow: 1.8rem 1.8rem 3rem #0000002c;
+    cursor: pointer;
+
+}
+
+
+.pie-chart-container{
+    width: 50%;
+}

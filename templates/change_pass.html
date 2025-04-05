@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+
+{% block head %}
+<link href="static/change_pass.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+Login
+
+{% endblock %}
+
+{% block main %}
+
+
+<div class="form-change_pass shadow shadow-lg mx-auto">
+    
+    <form action="/change_pass" method="post"> 
+        
+        <div class="mx-auto">
+        <input type="password" name="old_pass" class="form-control user" placeholder="Old Password">
+        <input type="password" name="new_pass" class="form-control" placeholder="New Password">
+        <input type="password" name="confirm_pass" class="form-control" placeholder="Confirm New Password"><br>
+</div>
+
+        <button type="submit" class="btn btn-outline-primary btn-lg" >Change</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

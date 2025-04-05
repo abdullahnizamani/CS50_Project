@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+Dashboard
+{% endblock %}
+{% block head %}
+<link href="../static/index.css" rel="stylesheet">
+{% endblock %}
+{% block main %}
+
+
+
+<div class="container-fluid shadow col-12 h shadow-lg container-main">
+    <div class="row">
+    <div class="graph_comparsion container col-10 col-lg-5 mt-3 me-auto">
+        <img src="data:image/jpeg;base64,{{ salary_chart_img }}" class="col-12" alt="Salary chart, empty if none">
+    </div>
+    <div class="container col-lg-6 ms-auto mt-5 container-divs">
+        <div class="row">
+
+
+            <div class="col-5 col-lg-5 container-expense ms-5 mt-3">
+
+                <h5 class="mt-5">Expense this Month:</h5>
+                <h5 class="mt-4 me-2">{{ expense[0]['expense_month'] }}</h5>
+            </div>
+            <div class="col-5 col-lg-5  ms-auto container-salary mt-3 me-3">
+
+                <h5 class="mt-5">Income this Month:</h5>
+                <h5 class="mt-4 me-2">{{ income[0]['income_month'] }}</h5>
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-5 col-lg-5 ms-5 container-expense mt-5">
+
+                <h5 class="mt-5">Expense this year:</h5>
+                <h5 class="mt-4">{{ expense[1]['expense_year'] }}</h5>
+            </div>
+
+            <div class="col-5 col-lg-5  ms-auto container-salary mt-5 me-3">
+
+                <h5 class="mt-5">Income this year:</h5>
+                <h5 class="mt-4">{{ income[1]['income_year'] }}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 col-lg-5 mx-auto container-salary mt-4">
+
+                <h5 class="mt-5">Balance:</h5>
+                <h5 class="mt-4 me-2">{{ balance }}</h5>
+            </div>         
+        </div>
+    </div>
+
+</div>
+</div>
+<div class="container-fluid shadow shadow-lg mt-5">
+
+
+    <div class="row ">
+        <div class="container col-12 col-lg-6 mt-3 ms-auto">
+            <img src="data:image/jpeg;base64, {{ pie_chart_img_monthly }}" class="col-12 col-lg-12" alt="Monthly expense pie chart, empty if none">
+        </div>
+
+        <div class="container col-12 col-lg-6 mt-3 me-auto">
+            <img src="data:image/jpeg;base64, {{ pie_chart_img_yearly }}" class="col-12 col-lg-12" alt="Yearly expense pie chart, empty if none">
+            </div>
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account deletion confirmation</title>
+</head>
+<body>
+    <h1>Are you sure you want to delete your account?</h1> <br>
+  <p> <span style="font-weight: bold;""> This action is irreversable</span><br> if you however want to proceed further you have to type out your password as a confirmation and all of your record will be deleted</p>
+
+<form action="/delete_account" method="post">
+    <label for="password">Password:</label>
+<input type="password" id="password" name="confirmation-password"><br><br>
+<button type="submit" style="margin-left: 90px;">Confirm</button>
+
+</form>
+</body>
+</html>

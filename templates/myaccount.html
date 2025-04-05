@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+
+{% block title %}
+My Account
+{% endblock %}
+
+{% block head %}
+<link href="static/myaccount.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+
+{% block main %}
+
+
+<div class="container-fluid main shadow shadow-lg " >
+<div class="row me-5 ms-5" >
+    <div class="img-cont mt-5 col-lg-6  d-inline d-none d-sm-none d-xs-none d-lg-block d-md-none">
+        <img src="data:image/jpeg;base64,{{ g.profile }}" alt="profile"  id="pfp"/>
+    </div>
+    <div class="data col-lg-6">
+    <h4 class="col-lg-6 col-9 ms-4 d-none d-sm-none d-xs-none d-lg-block d-md-none" style="margin-top: 100px; word-break: break-word;">{{ data[0]['name'] }}</h4>
+    <h5 class="col-3 mt-4 col-lg-5 d-none d-sm-none d-xs-none d-lg-block d-md-none">@{{ data[0]['username'] }}</h5>
+
+
+    <div class="img-cont mx-auto mt-5 col-lg-6 d-inline d-none d-sm-block d-xs-none d-lg-none d-md-block ">
+        <img src="data:image/jpeg;base64,{{ g.profile }}" alt="profile"  id="pfp"/>
+    </div>
+
+    <div class="img-cont mt-5 col-lg-6 d-inline d-sm-none d-xs-block d-lg-none d-md-none">
+        <img src="data:image/jpeg;base64,{{ g.profile }}" alt="profile"  id="pfp"/>
+    </div>
+
+    <h4  class="col-lg-6 col-9 mx-auto d-sm-block d-xs-block d-lg-none d-md-block " style="margin-top: 100px; word-break: break-word;">{{ data[0]['name'] }}</h4>
+    <h5  class="col-6 mt-4  mx-auto col-lg-5 d-sm-block d-xs-block d-lg-none d-md-block  ">@{{ data[0]['username'] }}</h5>
+
+    </div>
+</div>
+
+<hr class="solid">  
+
+
+<div class="row col-md-6" style="margin-top: 70px;">
+    <div class="mt-5">
+        <form action="/change_pfp" method="post" enctype="multipart/form-data">
+            <div class="update w-100">
+                <div class="w-75 me-auto">
+                    <label for="profile_pic" class="col-form-label">Change Profile</label>
+                </div>
+
+                <div class="w-100">
+                    <input name="profile_pic" type="file" class="form-control" accept="image/jpeg">
+                </div>
+
+                <div class="w-50 ms-2">
+                    <button name="submit" type="submit" class="btn btn-primary w-100" id="upload">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    </div>
+    <div class="mt-5 row bio">
+    <form action="/change_pass" class="col-4 col-lg-2 col-md-4 change_pass" method="get">
+       
+            <button type="submit" class="btn btn-primary">Change Password</button>
+       
+    </form>
+    <form action="/remove_pfp" method="post" class="col-4 col-lg-2 col-md-4 remove_profile" >
+      
+            <button type="submit" class="btn btn-primary">Remove Profile</button>
+        
+    </form>
+    <div class="col-4 col-lg-2 col-md-4 remove_account d-none d-sm-none d-lg-block d-md-block" >
+      
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmation-delete-account">Remove Account</button>
+    
+    </div>
+
+
+
+    <div class="col-2 col-lg-2 col-md-4 update_account d-none d-sm-none d-xs-none d-lg-block d-md-block" >
+      
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#name-change">Update Account</button>
+    
+    </div>
+    </div>
+
+    <div class="row mt-5 bio">
+        <div class="col-4 col-lg-2 col-md-4 remove_account d-lg-none d-md-none d-sm-block d-xs-block" >
+      
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmation-delete-account">Remove Account</button>
+        
+        </div>
+     
+    <div class="col-3  col-lg-2 col-md-4 update_account d-lg-none d-md-none d-sm-block d-xs-block" >
+      
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#name-change">Update Account</button>
+    
+    </div>   
+    </div>
+</div>
+
+<div class="modal fade" id="confirmation-delete-account" tabindex="-1" aria-labelledby="Confirmation label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmation-delete-label">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete your account?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="confirm-delete" class="btn btn-danger" form="delete-account">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="name-change" tabindex="-1" aria-labelledby="Confirmation label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmation-delete-label">Are you sue?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/update_name" id="update-name" method="post">
+                <div class="form-group d-flex align-items-center"> 
+                    <label for="name" class="w-25">Name</label> 
+                    <input type="text" id="name" name="name" class="form-control w-75" placeholder="Name"> 
+                </div>
+            </form>
+                             
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="confirm-delete" class="btn btn-success" form="update-name">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+
+    buttonClick = document.getElementById('confirm-delete');
+    buttonClick.addEventListener('click',() =>{
+        buttonClick.addEventListener('click', () => {
+    window.location.href = '/delete_account';
+});
+    })
+})
+</script>
+
+{% endblock %}

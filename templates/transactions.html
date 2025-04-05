@@ -1,0 +1,253 @@
+{% extends "layout.html" %}
+
+{%block title%}
+Transactions
+{% endblock %}
+
+
+{% block head %}
+<link href="../static/transactions.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../static/transactions.js" type="text/javascript" ></script>
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid shadow shadow-lg">
+    <div class="row pt-5">
+  <h3 >Transactions</h3>
+</div>
+<div class="row mt-5"></div>
+<div class="row mt-5"></div>
+<div class="row mt-3"></div>
+   <div class="row mt-5">
+    <form method="get" action="/search" class="form-inline col-md-4 mx-auto mt-2">
+        <div class="input-group mb-3">
+
+        <input type="search" name="search" id="input-Search" placeholder="Search for a transaction by name" class="form-control w-25">
+        <div class="input-group-append">
+
+        <button name="search" type="submit" id="btn-Search" class="btn btn-primary ms-3">Search</button>
+        </div>
+        </div>
+    </form>
+   </div>
+
+
+<div class="modal-container mt-5">
+    
+<button type="button" class="btn btn-outline-success trigger " data-bs-toggle="modal" data-bs-target="#add-modal">
+    Add
+  </button>
+  <button type="submit" id="btn-edit" class="btn btn-outline-warning trigger ms-3">
+    Edit
+  </button>
+  <button type="button" class="btn btn-outline-danger trigger ms-3" data-bs-toggle="modal" data-bs-target="#confirmation-delete">
+    Delete
+  </button>
+  <div class="modal fade" id="add-modal" tabindex="-1" aria-labelledby="modal-titlee" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <h5 class="modal-title" id="modal-titlee">Add Transaction</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/transactions" method="post" id="add-transaction" >
+                
+                <div class="form-group d-flex align-items-center">
+                <label for="new-transaction-name" class="form-label w-25 align-content-start mt-1">Name</label>
+                <input type="text" name="new-transaction-name" id="new-transaction-name" class="form-control w-50 ">
+                <label for="new-transaction-date" class="form-label w-25 align-content-start mt-1">Date</label>
+                <input type="date" name="new-transaction-date" id="new-transaction-edit" class="form-control w-50 ">
+            </div>
+            <div class="form-group d-flex align-items-center mt-5">
+                <label for="category-type" class="form-label align-content-start ms-5" style="width: 80px;">Type</label>
+                <select id="category-type" name="category-type" class="form-control ms-5" style="width: 34% ;">
+                    <option value="">Select type</option>
+                </select>
+
+</div>
+
+            <div class="form-group form-group d-flex align-items-center mt-5">
+                <label for="primary-category" class="form-label w-25 align-content-start ">Primary Category</label>
+                <select id="primary-category" name="primary-category" class="form-control w-50 ms-3">
+                    <option value="">Select Primary Category</option>
+                </select>
+                <label for="sub-category" class="form-label align-content-start w-25 ms-1 mt-2">Sub Category</label>
+
+                <select id="sub-category" name="sub-category" class="form-control w-50 ms-3">
+                    <option value="">Select Sub Category</option>
+                </select>
+</div>
+<div class="form-group form-group d-flex align-items-center mt-5">
+    <label for="new-transaction-amount" class="form-label w-25 align-content-start mt-1">Amount</label>
+    <input type="text" name="new-transaction-amount" id="new-transaction-amount" class="form-control w-50 ">
+    <label for="transfer-method" class="form-label w-25 align-content-start mt-1">Method</label>
+    <select id="transfer-method" name="transfer-method" class="form-control w-5 ms-3">
+        <option value="">Select Payment Method</option>
+        {% for val in transfer_method %}
+        <option value = "{{val}}">{{ val }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="form-group mt-5">
+    <div class="d-flex justify-content-start">
+        <div></div>
+    <label for="description" class="form-label mt-1">Description</label>
+    </div>
+   
+    <textarea name="description" id="description" class="form-control w-100" style="height: 200px; resize: none;" placeholder="Description of your transaction"></textarea>
+</div>
+
+        </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="add-transaction" >Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal modal-xl fade" id="edit-modal" tabindex="-1" aria-labelledby="modal-title-edit" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modal-title-edit">Edit Transaction</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="edit-transaction-form" >
+                
+            <div class="form-group d-flex align-items-center">
+            <label for="edit-transaction-name" class="form-label w-25 align-content-start mt-1">Name</label>
+            <input type="text" name="edit-transaction-name" id="edit-transaction-name" class="form-control w-50 ">
+            <label for="edit-transaction-date" class="form-label w-25 align-content-start mt-1">Date</label>
+            <input type="date" name="edit-transaction-date" id="edit-transaction-date" class="form-control w-50 ">
+        </div>
+        <div class="form-group d-flex align-items-center mt-5">
+            <label for="edit-category-type" class="form-label align-content-start ms-5" style="width: 80px;">Type</label>
+            <select id="edit-category-type" name="edit-category-type" class="form-control ms-5" style="width: 34% ;">
+
+            </select>
+
+</div>
+
+        <div class="form-group form-group d-flex align-items-center mt-5">
+            <label for="edit-primary-category" class="form-label w-25 align-content-start ">Primary Category</label>
+            <select id="edit-primary-category" name="edit-primary-category" class="form-control w-50 ms-3">
+                <option value="">Select Primary Category</option>
+            </select>
+            <label for="edit-sub-category" class="form-label align-content-start w-25 ms-1 mt-2">Sub Category</label>
+
+            <select id="edit-sub-category" name="edit-sub-category" class="form-control w-50 ms-3">
+                <option value="">Select Sub Category</option>
+            </select>
+</div>
+<div class="form-group form-group d-flex align-items-center mt-5">
+<label for="edit-transaction-amount" class="form-label w-25 align-content-start mt-1">Amount</label>
+<input type="text" name="edit-transaction-amount" id="edit-transaction-amount" class="form-control w-50 ">
+<label for="edit-transfer-method" class="form-label w-25 align-content-start mt-1">Method</label>
+<select id="edit-transfer-method" name="edit-transfer-method" class="form-control w-5 ms-3">
+    <option value="">Select Payment Method</option>
+    {% for val in transfer_method %}
+    <option value = "{{val}}">{{ val }}</option>
+    {% endfor %}
+</select>
+</div>
+
+<div class="form-group mt-5">
+<div class="d-flex justify-content-start">
+    <div></div>
+<label for="edit-description" class="form-label mt-1">Description</label>
+</div>
+
+<textarea name="edit-description" id="edit-description" class="form-control w-100" style="height: 200px; resize: none;" placeholder="Description of your transaction"></textarea>
+</div>
+
+    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" form="edit-transaction-form" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="mt-5 w-100" style="height: 400px; overflow-y: auto;"">
+   <form id="delete-transaction" class="me-5 w-100" style="table-layout:fixed; "  action="/delete_transactions" method="post">
+   <table class="table table-hover" border="1">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Primary Category</th>
+            <th>Sub Category</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+      
+        {% for transaction in data %}
+        <tr>            
+            <td><input type='checkbox' class="form-check-input" name="checkbox-delete" value="{{transaction['id']}}"></td>
+            <td><input type="radio" class="form-check-input"  name="edit-transact" value="{{transaction['id']}}"></td>
+            <td>{{ transaction['id'] }}</td>
+            <td>{{ transaction['name'] }}</td>
+            <td>{{ transaction['date'] }}</td>
+            <td>{{ transaction['type'] }}</td>
+            <td>{{ transaction['primary_category'] }}</td>
+            <td>{{ transaction['sub_category'] }}</td>
+            <td>{{ transaction['type'] }}</td>
+            <td>{{ transaction['amount'] }}</td>
+            <td>{{ transaction['method'] }}</td>
+            <td>{{ transaction['description'] }}</td>
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+   </form>
+   </div>
+</div>
+
+
+<div class="modal fade" id="confirmation-delete" tabindex="-1" aria-labelledby="Confirmation label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmation-delete-label">Are you sure?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete all selected transactions?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" form="delete-transaction" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+{% endblock%},

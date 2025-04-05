@@ -1,0 +1,30 @@
+.form-register {
+    width: 100%; /* Full width of the parent */
+    max-width: 900px; /* Set max width */
+    margin: 40px auto; /* Center the form */
+    padding: 20px;
+}
+
+.form-container {
+    margin-top: 20px;
+    margin-right: 50px;
+}
+
+.form-register .form-group {
+    margin-bottom: 20px; /* Space between form groups */
+}
+
+.form-register input {
+    width: 100%; /* Full width of the parent (col-8 div) */
+}
+
+.form-register button {
+    margin-top: 30px;
+}
+
+@media (min-width:1000px) {
+    .form-register button{
+        margin-left: 450px;
+
+    }
+}

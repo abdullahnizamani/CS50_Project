@@ -1,0 +1,77 @@
+.main {
+    height: 700px;
+}
+
+@media (max-width:1199px) {
+    .main {
+        height: 1000px;
+    }
+}
+
+
+@media (max-width:1199px) {
+    .button-container {
+        margin-left: 100px;
+    }
+
+    .change_pass,
+    .remove_profile,
+    .remove_account,
+    .update_account {
+        text-wrap: nowrap;
+    }
+
+}
+
+@media (max-width:576px) {
+
+    .remove_profile {
+        margin-left: 20px;
+    }
+
+    .bio {
+        margin-left: 50px;
+        margin-top: 25px;
+    }
+
+}
+
+@media (max-width:456px) {
+
+    .remove_profile,
+    .update_account {
+        margin-left: 50px;
+    }
+
+    .bio {
+        margin-left: 20px;
+        margin-top: 25px;
+    }
+
+}
+
+#pfp {
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+}
+
+hr.solid {
+    border-top: 6px solid #949292;
+    margin-top: 40px;
+}
+
+#upload {
+    width: 140px;
+}
+
+.update {
+    display: flex;
+}
+
+.img-cont {
+    height: 140px;
+    width: 140px;
+    position: relative;
+
+}
