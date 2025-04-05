@@ -1,14 +1,14 @@
 
-#Finance Tracking App
+# Finance Tracking App
 
 Final project as part of my syllabus for CS50x
 
-###Description:
+### Description:
 Based upon the simple framework of flask this application performs all operations of CRUD. It utilises libraries such as flask, requests, datetime, werkzeug.security (for password hashing), calender, base64, matplotlib, BytesIO (for storing images to be converted to base64). I also used CS50 for SQL as I figured it didn't make sense to make it more complex by using the actual SQL libraries. I have created a helper functions file which basically stores 3 functions in total for keeping the main file elegant and mainting structure but that didn't help much lol. The UI of this project is based entirely on Bootstrap
 
 Now onto the project description.
 
-####Below are the basic features it offers
+#### Below are the basic features it offers
 >A password hashing system so the password isn't stored as plain text in the db.<br/>
 
 >A Login and Registration form to seperate store user id.<br/>
