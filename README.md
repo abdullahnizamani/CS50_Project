@@ -68,5 +68,5 @@ The dashboard is also the index page for this applicatoin, it serves as the entr
 
 
 
-#Conclusion
+# Conclusion
  - The Finance Tracking App effectively helps users manage their financial transactions with a user-friendly interface and secure password handling. The dashboard provides insightful summaries and visualizations, allowing users to make informed decisions about their finances. I look forward to expanding its features and improving user engagement in the future.
