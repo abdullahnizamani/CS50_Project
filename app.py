@@ -275,8 +275,8 @@ def register():
     name_format = re.compile("^[A-Za-z]+( [A-Za-z]+)*$")
     response = requests.get('https://restcountries.com/v3.1/all')
     countries = response.json()
-    country = [{'code': country['cca2'], 'country': country['name']['common']}for country in countries]
-
+    countryy = [{'code': country['cca2'], 'country': country['name']['common']}for country in countries]
+    country = sorted(countryy, key=lambda d: d['country'])
     if request.method == 'POST':
         name = request.form.get("name")
         if not name or is_num(name) or not name_format.match(name):
