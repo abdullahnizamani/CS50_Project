@@ -273,7 +273,7 @@ def login():
 def register():
     email_format = re.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
     name_format = re.compile("^[A-Za-z]+( [A-Za-z]+)*$")
-    response = requests.get('https://restcountries.com/v3.1/all')
+    response = requests.get('https://restcountries.com/v3.1/all?fields=cca2,name')
     countries = response.json()
     countryy = [{'code': country['cca2'], 'country': country['name']['common']}for country in countries]
     country = sorted(countryy, key=lambda d: d['country'])
